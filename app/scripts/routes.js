@@ -19,6 +19,7 @@ import {
   ConversationsIndex,
   ConversationsNew,
   ConversationsShow,
+  EventMap,
   EventsEdit,
   EventsNew,
   EventsShow,
@@ -47,13 +48,14 @@ export default class Routes extends Component {
       <main role="main">
         <Switch>
           <Route component={Home} exact={true} path="/" />
+          <Route component={EventMap} path="/map" />
+          <Route component={Calendar} path="/calendar" />
           <Route component={shouldNotBeAuthenticated(Login)} path="/login" />
           <Route component={withConfig('isSignUpParticipantEnabled', shouldNotBeAuthenticated(Register))} path="/register" />
           <Route component={withConfig('isSignUpVisitorEnabled', shouldNotBeAuthenticated(Tickets))} path="/tickets" />
           <Route component={shouldNotBeAuthenticated(ForgotPassword)} path="/forgot" />
           <Route component={shouldNotBeAuthenticated(ResetPassword)} path="/reset/:token" />
           <Route component={Page} path="/pages/:slug" />
-          <Route component={Calendar} path="/calendar" />
           <Route component={isAuthenticated(Profile)} path="/profile" />
           <Route component={withConfig('gifStreamServerUrl', isAuthenticated(Stream))} path="/stream" />
           <Route component={withConfig('isActivityStreamEnabled', isParticipant(Activity))} path="/activity" />

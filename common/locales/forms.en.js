@@ -12,7 +12,7 @@ export default {
   },
   auth: {
     errors: {
-      usernameRequired: 'Please enter your first name',
+      usernameRequired: 'Please enter your username',
       invalidMail: 'Invalid email address',
       mailRequired: 'Please enter your email address',
       maxLength: 'This field can\'t be longer than {len} characters',
@@ -43,7 +43,10 @@ export default {
   },
   config: {
     errors: {
-      usernameRequired: 'Please enter your username',
+      cityCodeRequired: 'Please enter your city code',
+      cityRequired: 'Please enter your city',
+      countryRequired: 'Please enter your country',
+      firstnameRequired: 'Please enter your first name',
       invalidMail: 'Invalid email address',
       mailRequired: 'Please enter your email address',
       maxLength: 'This field can\'t be longer than {len} characters',
