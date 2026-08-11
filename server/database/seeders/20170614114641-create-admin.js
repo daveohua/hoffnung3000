@@ -1,11 +1,22 @@
+const bcrypt = require('bcrypt')
+
 module.exports = {
-  up: queryInterface => {
+  up: async queryInterface => {
+    const email = process.env.INITIAL_ADMIN_EMAIL
+    const password = process.env.INITIAL_ADMIN_PASSWORD
+
+    if (!email || !password) {
+      throw new Error(
+        'INITIAL_ADMIN_EMAIL and INITIAL_ADMIN_PASSWORD must be set before seeding'
+      )
+    }
+
     return queryInterface.bulkInsert('users', [{
       createdAt: new Date,
       updatedAt: new Date,
       username: 'Boo Boo',
-      password: '$2a$10$Loa5/JpAso9ZpVtL1EYrT.4CrFSkblu2nqtltJYyUF5qBd/E3Deru', // Default: "adminadmin"
-      email: 'admin@domain.com',
+      password: await bcrypt.hash(password, 10),
+      email,
       isAdmin: true,
       isParticipant: false,
       isActive: true,

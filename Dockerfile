@@ -1,15 +1,15 @@
-FROM node:15
+FROM node:22-bookworm
 
 WORKDIR /usr/src/app
 
-COPY package*.json ./
-
-RUN npm install
-
 COPY . .
 
-RUN npm run build
+# `postinstall` builds the client bundle. Copying the full source before
+# installation makes that script work during a Docker build.
+RUN npm ci
 
-EXPOSE 3000
+ENV NODE_ENV=production
+
+EXPOSE 10000
 
 CMD [ "npm", "run", "start" ]
