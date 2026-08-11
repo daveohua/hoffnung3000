@@ -5,6 +5,7 @@ import CopyPlugin from 'copy-webpack-plugin'
 import MiniCssExtractPlugin from 'mini-css-extract-plugin'
 import OptimizeCssAssetsPlugin from 'optimize-css-assets-webpack-plugin'
 import TerserPlugin from 'terser-webpack-plugin'
+import { emitWarning } from 'process'
 
 const APP_FILE_NAME = 'app'
 const VENDORS_FILE_NAME = 'lib'
@@ -41,6 +42,9 @@ module.exports = (env, options) => {
           exclude,
           enforce: 'pre',
           loader: 'eslint-loader',
+          options: {
+            emitWarning: true,
+          },
         },
         {
           test: /\.js$/,
