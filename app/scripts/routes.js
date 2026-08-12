@@ -39,7 +39,6 @@ import {
   ResourcesIndex,
   ResourcesNew,
   Stream,
-  Tickets,
 } from './views'
 
 export default class Routes extends Component {
@@ -52,7 +51,6 @@ export default class Routes extends Component {
           <Route component={Calendar} path="/calendar" />
           <Route component={shouldNotBeAuthenticated(Login)} path="/login" />
           <Route component={withConfig('isSignUpParticipantEnabled', shouldNotBeAuthenticated(Register))} path="/register" />
-          <Route component={withConfig('isSignUpVisitorEnabled', shouldNotBeAuthenticated(Tickets))} path="/tickets" />
           <Route component={shouldNotBeAuthenticated(ForgotPassword)} path="/forgot" />
           <Route component={shouldNotBeAuthenticated(ResetPassword)} path="/reset/:token" />
           <Route component={Page} path="/pages/:slug" />

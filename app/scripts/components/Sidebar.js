@@ -111,22 +111,6 @@ const SignUpParticipantSection = withConfig('isSignUpParticipantEnabled', () => 
   )
 })
 
-const SignUpVisitorSection = withConfig('isSignUpVisitorEnabled', () => {
-  return (
-    <Fragment>
-      <p>{ translate('components.sidebar.visitorHeader' )}</p>
-
-      <div className="button-group">
-        <Link className="button" to="/tickets">
-          { translate('components.sidebar.visitorButton' )}
-        </Link>
-      </div>
-
-      <hr className="separator separator--white" />
-    </Fragment>
-  )
-})
-
 class Sidebar extends Component {
   static propTypes = {
     isActive: PropTypes.bool.isRequired,
@@ -207,7 +191,6 @@ class Sidebar extends Component {
 
           <br />
           <SignUpParticipantSection />
-          <SignUpVisitorSection />
 
           <p>{ translate('components.sidebar.loginHeader' )}</p>
 

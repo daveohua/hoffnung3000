@@ -36,10 +36,6 @@ const VISITOR_NAVIGATION = [
   { localeKey: 'stream', url: '/stream', withConfig: 'gifStreamServerUrl' },
 ]
 
-const DEFAULT_NAVIGATION = [
-  { localeKey: 'tickets', url: '/tickets', withConfig: 'isSignUpVisitorEnabled' },
-]
-
 class NavigationLinks extends Component {
   static propTypes = {
     config: PropTypes.object.isRequired,
@@ -97,7 +93,7 @@ class NavigationLinks extends Component {
       return this.renderNavigation(PLACES_PUBLIC_NAVIGATION)
     }
 
-    return this.renderNavigation(DEFAULT_NAVIGATION)
+    return this.renderNavigation([])
   }
 }
 
