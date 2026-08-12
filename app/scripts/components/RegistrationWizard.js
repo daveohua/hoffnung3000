@@ -11,8 +11,6 @@ import { register } from '../actions/auth'
 import { translate } from '../../../common/services/i18n'
 import { withConfig } from '../containers'
 
-const totalSteps = 3
-
 const permittedFields = [
   'email',
   'username',
@@ -217,7 +215,7 @@ class RegistrationWizard extends Component {
   renderRegistrationForm() {
     const title = translate('components.registrationWizard.stepTitle', {
       currentStep: 2,
-      totalSteps,
+      totalSteps: this.isFreeRegistration() ? 2 : 3,
     })
 
     return (
@@ -227,7 +225,7 @@ class RegistrationWizard extends Component {
         <RegistrationForm
           errorMessage={this.props.errorMessage}
           isLoading={this.props.isLoading}
-          onSubmit={this.nextStep}
+          onSubmit={this.isFreeRegistration() ? this.onFreeCheckout : this.nextStep}
         />
       </div>
     )
@@ -257,7 +255,7 @@ class RegistrationWizard extends Component {
 
     const title = translate('components.registrationWizard.stepTitle', {
       currentStep: 1,
-      totalSteps,
+      totalSteps: this.isFreeRegistration() ? 2 : 3,
     })
 
     return (
@@ -290,11 +288,15 @@ class RegistrationWizard extends Component {
       return this.renderIntroduction()
     } else if (this.state.registrationStep === 1) {
       return this.renderRegistrationForm()
-    } else if (this.state.registrationStep === 2) {
+    } else if (this.state.registrationStep === 2 && !this.isFreeRegistration()) {
       return this.renderPaymentGateway()
     }
 
     return null
+  }
+
+  isFreeRegistration() {
+    return this.props.config.participationPrice === 0
   }
 
   nextStep() {
@@ -324,6 +326,7 @@ class RegistrationWizard extends Component {
     }
 
     this.nextStep = this.nextStep.bind(this)
+    this.isFreeRegistration = this.isFreeRegistration.bind(this)
     this.onFreeCheckout = this.onFreeCheckout.bind(this)
     this.onPayPalCheckout = this.onPayPalCheckout.bind(this)
     this.onTermsAcceptedChanged = this.onTermsAcceptedChanged.bind(this)
