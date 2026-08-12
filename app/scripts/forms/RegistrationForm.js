@@ -48,11 +48,13 @@ class RegistrationForm extends Component {
     errorMessage: PropTypes.string,
     handleSubmit: PropTypes.func.isRequired,
     isLoading: PropTypes.bool,
+    submitLabel: PropTypes.string,
   }
 
   static defaultProps = {
     errorMessage: undefined,
     isLoading: false,
+    submitLabel: undefined,
   }
 
   renderErrorMessage() {
@@ -127,7 +129,7 @@ class RegistrationForm extends Component {
           disabled={this.props.isLoading}
           type="submit"
         >
-          { translate('forms.auth.nextStepButton') }
+          { this.props.submitLabel || translate('forms.auth.nextStepButton') }
         </button>
       </form>
     )

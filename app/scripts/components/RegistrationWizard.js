@@ -225,6 +225,9 @@ class RegistrationWizard extends Component {
         <RegistrationForm
           errorMessage={this.props.errorMessage}
           isLoading={this.props.isLoading}
+          submitLabel={this.isFreeRegistration()
+            ? translate('components.common.freeCheckout')
+            : undefined}
           onSubmit={this.isFreeRegistration() ? this.onFreeCheckout : this.nextStep}
         />
       </div>
