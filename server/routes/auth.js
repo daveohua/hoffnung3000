@@ -7,6 +7,14 @@ import checkConfig from '../middlewares/configs'
 
 const router = express.Router() // eslint-disable-line new-cap
 
+// Retire the former visitor-ticket endpoint instead of allowing it to fall
+// through to the generic signup route in this legacy Express router.
+router.route('/signup/ticket')
+  .all((req, res) => res.status(404).json({
+    message: 'Route does not exist',
+    status: 404,
+  }))
+
 router.route('/signup')
   .post(
     checkConfig('isSignUpParticipantEnabled'),
