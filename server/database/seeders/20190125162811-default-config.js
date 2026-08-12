@@ -25,7 +25,7 @@ module.exports = {
       mailAddressRobot: 'noreply@domain.com',
       maximumParticipantsCount: 30,
       participationPrice: 25.00,
-      title: 'HOFFNUNG 3000',
+      title: 'Antiuniversity Now Festival 2026',
       transferBIC: '',
       transferBankName: '',
       transferIBAN: '',
