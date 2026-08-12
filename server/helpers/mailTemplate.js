@@ -36,7 +36,7 @@ function textTemplate(url, locals) {
 }
 
 function sendMail(locals, subject, receiver, templateName, sender) {
-  return new Promise((resolve, reject) => {
+  return new Promise(resolve => {
     textTemplate(`${TEMPLATES_PATH}/${templateName}.txt`, locals)
       .then(text => {
         const mailOptions = {
@@ -54,20 +54,24 @@ function sendMail(locals, subject, receiver, templateName, sender) {
 
         // Do not try to send emails when SMTP_HOST not set
         if (!process.env.SMTP_HOST) {
-          logger.info('Could not send email. SMTP_HOST is not set!')
-          return reject()
+          logger.warn('Skipping email delivery because SMTP_HOST is not set.')
+          return resolve()
         }
 
         return mail.sendMail(mailOptions, err => {
           if (err) {
-            reject(err)
+            logger.warn(`Skipping email delivery after SMTP error: ${err.message}`)
+            resolve()
             return
           }
 
           resolve()
         })
       })
-      .catch(reject)
+      .catch(err => {
+        logger.warn(`Skipping email delivery: ${err.message}`)
+        resolve()
+      })
   })
 }
 
