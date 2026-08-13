@@ -24,6 +24,12 @@ class DatePicker extends Component {
 
   render() {
     const { festivalDateStart, festivalDateEnd } = this.props.config
+    // festivalDateEnd is kept one day after the festival because slots use an
+    // exclusive end date. Do not offer that technical buffer day in calendars.
+    const lastFestivalDate = DateTime
+      .fromISO(festivalDateEnd)
+      .minus({ days: 1 })
+      .toJSDate()
 
     return (
       <ReactDatePicker
@@ -31,7 +37,7 @@ class DatePicker extends Component {
           'react-date-picker--user-selected': !this.props.isDefault,
         })}
         format="dd.MM.y"
-        maxDate={new Date(festivalDateEnd)}
+        maxDate={lastFestivalDate}
         minDate={new Date(festivalDateStart)}
         value={new Date(this.props.value)}
         onChange={this.onChange}
